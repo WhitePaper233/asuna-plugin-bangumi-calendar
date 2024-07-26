@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=800, initial-scale=1.0">
+  <title>Bangumi Calendar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <div class="w-[800px] p-4 bg-gray-100 space-y-4 main">
+    <h1 class="text-4xl mx-auto text-center">今日放送</h1>
+    <div id="items" class="space-y-4">
+      <% items.forEach(item=> { %>
+        <div class="bg-white md:flex-col w-full rounded-lg overflow-hidden drop-shadow-xl">
+          <div class="space-x-8 justify-between pl-6 md:pl-9 pr-6 md:pr-6 pt-6 md:pt-7 pb-6 flex flex-row">
+            <div class="flex justify-between flex-col w-full">
+              <div>
+                <a href="<%= item.url %>"
+                  class="w-full block font-bold mb-3 text-3xl text-90 before:w-1 before:h-5 before:rounded-md before:absolute before:top-[35px] before:left-[18px] before:hidden md:before:block">
+                  <%= item.title %>
+                </a>
+                <div class="flex flex-wrap text-neutral-500 dark:text-neutral-400 items-center gap-4 gap-x-4 gap-y-2">
+                  <div class="flex items-center">
+                    <div class="bg-sky-200 mr-2 p-1 rounded-lg">
+                      <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-xl text-blue-500">
+                        <symbol id="ai:material-symbols:calendar-today-outline-rounded">
+                          <path fill="currentColor"
+                            d="M5 22q-.825 0-1.412-.587T3 20V6q0-.825.588-1.412T5 4h1V3q0-.425.288-.712T7 2t.713.288T8 3v1h8V3q0-.425.288-.712T17 2t.713.288T18 3v1h1q.825 0 1.413.588T21 6v14q0 .825-.587 1.413T19 22zm0-2h14V10H5zM5 8h14V6H5zm0 0V6z">
+                          </path>
+                        </symbol>
+                        <use xlink:href="#ai:material-symbols:calendar-today-outline-rounded">
+                        </use>
+                      </svg>
+                    </div>
+                    <span class="text-50 text-sm font-medium text-black/80">
+                      <%= item.date %>
+                    </span>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="bg-sky-200 mr-2 p-1 rounded-lg">
+                      <svg height="1em" width="1em" viewBox="0 0 24 24" class="text-xl text-blue-500 fill-blue-500">
+                        <path d="M3 18h18v-2H3v2Zm0-5h18v-2H3v2Zm0-5h18V6H3v2Z" />
+                      </svg>
+                    </div>
+                    <div class="flex flex-row flex-nowrap">
+                      <div>
+                        <a href="//bgm.tv/anime"
+                          class="link-lg transition text-50 text-sm font-medium whitespace-nowrap text-black/80">番剧</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="bg-sky-200 mr-2 p-1 rounded-lg">
+                      <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-xl text-blue-500 fill-blue-500">
+                        <symbol id="ai:material-symbols:tag-rounded">
+                          <path fill="currentColor"
+                            d="m9 16l-.825 3.275q-.075.325-.325.525t-.6.2q-.475 0-.775-.375T6.3 18.8L7 16H4.275q-.5 0-.8-.387T3.3 14.75q.075-.35.35-.55t.625-.2H7.5l1-4H5.775q-.5 0-.8-.387T4.8 8.75q.075-.35.35-.55t.625-.2H9l.825-3.275Q9.9 4.4 10.15 4.2t.6-.2q.475 0 .775.375t.175.825L11 8h4l.825-3.275q.075-.325.325-.525t.6-.2q.475 0 .775.375t.175.825L17 8h2.725q.5 0 .8.387t.175.863q-.075.35-.35.55t-.625.2H16.5l-1 4h2.725q.5 0 .8.388t.175.862q-.075.35-.35.55t-.625.2H15l-.825 3.275q-.075.325-.325.525t-.6.2q-.475 0-.775-.375T12.3 18.8L13 16zm.5-2h4l1-4h-4z">
+                          </path>
+                        </symbol>
+                        <use xlink:href="#ai:material-symbols:tag-rounded"></use>
+                      </svg>
+                    </div>
+                    <div class="flex flex-row flex-nowrap space-x-2">
+                      <% item.tags.forEach(tag=> { %>
+                        <div class="with-divider">
+                          <span class="text-black/80 link-lg transition text-50 text-sm font-medium whitespace-nowrap">
+                            <%= tag %>
+                          </span>
+                        </div>
+                        <% }); %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="w-full min-h-12 transition text-75 line-clamp-3">
+                <%= item.description %>
+              </p>
+              <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition">
+                <span class="text-black/80">#<%= item.number %></span>
+                <div class="text-black/80">|</div>
+                <span class="text-black/80">
+                  <%= item.rating %> 分
+                </span>
+                <div class="text-black/80">|</div>
+                <span class="text-black/80">共 <%= item.episodes %> 话</span>
+              </div>
+            </div>
+            <a href="<%= item.url %>" aria-label="<%= item.title %>"
+              class="min-h-48 max-h-48 max-w-36 min-w-36 mx-4 mt-4 -mb-2 md:mb-0 md:mx-0 md:mt-0 md:top-3 md:bottom-3 md:right-3 rounded-xl overflow-hidden active:scale-95">
+              <img src="<%= item.image %>" alt="Cover of <%= item.title %>"
+                class="w-full h-full object-cover hover:brightness-75 transition-all" aria-hidden="true">
+            </a>
+          </div>
+        </div>
+        <% }); %>
+    </div>
+  </div>
+  <style>
+    .main {
+      background-color: #f4fbff;
+      background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zm33.414-6l5.95-5.95L45.95.636 40 6.586 34.05.636 32.636 2.05 38.586 8l-5.95 5.95 1.414 1.414L40 9.414l5.95 5.95 1.414-1.414L41.414 8zM40 48c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zM9.414 40l5.95-5.95-1.414-1.414L8 38.586l-5.95-5.95L.636 34.05 6.586 40l-5.95 5.95 1.414 1.414L8 41.414l5.95 5.95 1.414-1.414L9.414 40z' fill='%23c3e1ff' fill-opacity='0.45' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+  </style>
+</body>
+</html>
